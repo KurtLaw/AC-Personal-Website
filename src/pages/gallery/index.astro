@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import AlbumGallery from "../../components/AlbumGallery.astro";
+import { AUTHOR_INITIAL } from "../../config";
+import { getAlbumList } from "../../lib/album";
+
+const albumList = getAlbumList();
+---
+
+<BaseLayout title={AUTHOR_INITIAL + " | 相册"} sideBarActiveItemID="gallery">
+    <div class="pb-10">
+        <section class="mb-6 overflow-hidden rounded-ac-xl border-2 border-ac-border bg-ac-cream shadow-ac">
+            <div class="relative px-5 py-6 md:px-7">
+                <div class="absolute right-5 top-5 hidden rounded-full bg-base-100/80 px-4 py-2 text-sm font-semibold text-ac-primary-dark shadow-ac md:block">
+                    {albumList.length} 张照片
+                </div>
+                <p class="text-sm font-semibold text-ac-primary-dark">静态博客相册</p>
+                <h1 class="mt-1 text-3xl font-bold text-ac-text-dark md:text-4xl">相册</h1>
+                <p class="mt-3 max-w-2xl text-sm leading-7 text-ac-text-light md:text-base">
+                    图片存放在 <code>public/assets/photos/</code>，相册信息维护在 <code>src/data/album.json</code>。
+                    新增照片后重新打包部署即可显示，页面会自动按日期从新到旧排列。
+                </p>
+            </div>
+        </section>
+
+        <AlbumGallery />
+    </div>
+</BaseLayout>

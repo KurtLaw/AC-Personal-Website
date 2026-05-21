@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import AcNpcScene from "../../components/AcNpcScene.astro";
+import { AUTHOR_INITIAL } from "../../config";
+import gulliverIcon from "../images/Gulliver_NH_Character_Icon.png";
+import gulliverFull from "../images/130px-Gulliver_NH_2.png";
+---
+
+<BaseLayout
+    title={AUTHOR_INITIAL + " | Projects"}
+    sideBarActiveItemID="projects"
+>
+    <div class="ac-npc-page pb-2 pt-0">
+        <div class="mb-2 text-2xl font-bold">项目</div>
+
+        <AcNpcScene
+            line1="该岛民项目被吕游撞到海里去了呢"
+            attribution="—— 吕游说：对不起啦，我帮你捞！"
+            icon={gulliverIcon}
+            figure={gulliverFull}
+            figureAlt="吕游"
+        />
+    </div>
+</BaseLayout>
+
+<style>
+    .ac-npc-page {
+        max-height: calc(100dvh - 11rem);
+    }
+
+    @media (min-width: 1024px) {
+        .ac-npc-page {
+            max-height: calc(100dvh - 9rem);
+        }
+    }
+</style>

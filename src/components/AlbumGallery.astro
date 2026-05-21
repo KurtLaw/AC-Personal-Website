@@ -1,0 +1,211 @@
+---
+import { getAlbumList, resolveAlbumSrc } from "../lib/album";
+
+const albumList = getAlbumList();
+const albumJson = JSON.stringify(
+    albumList.map((item) => ({
+        ...item,
+        src: resolveAlbumSrc(item.path),
+    })),
+);
+---
+
+{
+    albumList.length === 0 ? (
+        <div class="rounded-ac-lg border-2 border-dashed border-ac-border bg-base-100 p-8 text-center text-ac-text-light">
+            <p class="font-medium text-ac-text-dark">相册还是空的</p>
+            <p class="mt-2 text-sm leading-6">
+                把图片放进 <code>public/assets/photos/</code>，再编辑{" "}
+                <code>src/data/album.json</code> 后重新部署即可。
+            </p>
+        </div>
+    ) : (
+        <>
+            <ul
+                class="album-grid grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4"
+                role="list"
+                aria-label="相册列表"
+            >
+                {albumList.map((item, index) => (
+                    <li role="listitem">
+                        <button
+                            type="button"
+                            class="album-card group block w-full overflow-hidden rounded-ac-xl border-2 border-ac-border bg-base-100 text-left shadow-ac transition duration-200 hover:-translate-y-1 hover:border-ac-primary hover:shadow-ac-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ac-primary"
+                            data-album-open={index}
+                            aria-label={`放大查看：${item.title}`}
+                        >
+                            <div class="relative aspect-square overflow-hidden bg-ac-cream">
+                                <img
+                                    src={resolveAlbumSrc(item.path)}
+                                    alt={item.title}
+                                    loading="lazy"
+                                    decoding="async"
+                                    class="album-thumb h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                                />
+                                <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-gradient-to-t from-black/55 to-transparent px-3 pb-3 pt-10 text-white opacity-0 transition group-hover:opacity-100">
+                                    <span class="text-sm font-semibold">点击放大</span>
+                                    <span class="rounded-full bg-white/20 px-2 py-1 text-xs backdrop-blur-sm">
+                                        {item.date}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="space-y-1 px-3 py-3">
+                                <h3 class="line-clamp-1 text-sm font-semibold text-ac-text-dark">
+                                    {item.title}
+                                </h3>
+                                <p class="line-clamp-2 min-h-[2.5rem] text-xs leading-5 text-ac-text-light">
+                                    {item.desc}
+                                </p>
+                                <time
+                                    class="block text-xs text-ac-text-light"
+                                    datetime={item.date}
+                                >
+                                    {item.date}
+                                </time>
+                            </div>
+                        </button>
+                    </li>
+                ))}
+            </ul>
+
+            <div
+                id="album-lightbox"
+                class="album-lightbox fixed inset-0 z-[100] hidden items-center justify-center p-3 md:p-6"
+                role="dialog"
+                aria-modal="true"
+                aria-hidden="true"
+                aria-labelledby="album-lightbox-title"
+            >
+                <button
+                    type="button"
+                    class="absolute inset-0 bg-black/75 backdrop-blur-sm"
+                    data-album-close
+                    aria-label="关闭预览"
+                />
+
+                <figure class="relative z-10 flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-ac-xl border-2 border-ac-border bg-base-100 shadow-ac">
+                    <div class="flex items-start justify-between gap-3 border-b border-ac-border px-4 py-3 md:px-5">
+                        <figcaption class="min-w-0">
+                            <h3
+                                id="album-lightbox-title"
+                                class="truncate text-lg font-bold text-ac-text-dark md:text-xl"
+                            />
+                            <p
+                                id="album-lightbox-desc"
+                                class="mt-1 truncate text-sm text-ac-text-light"
+                            />
+                        </figcaption>
+                        <button
+                            type="button"
+                            class="rounded-ac-md border-2 border-ac-border bg-ac-cream px-3 py-1.5 text-sm font-bold text-ac-text-dark shadow-ac transition hover:bg-ac-sand"
+                            data-album-close
+                            aria-label="关闭"
+                        >
+                            关闭
+                        </button>
+                    </div>
+
+                    <div class="relative flex min-h-0 flex-1 items-center justify-center bg-ac-cream p-3 md:p-5">
+                        <button
+                            type="button"
+                            class="album-nav-btn absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full border-2 border-ac-border bg-base-100/95 px-3 py-2 text-2xl leading-none shadow-ac transition hover:bg-ac-sand md:left-4 md:px-4 md:py-3"
+                            data-album-prev
+                            aria-label="上一张"
+                        >
+                            ‹
+                        </button>
+                        <img
+                            id="album-lightbox-img"
+                            alt=""
+                            class="max-h-[72vh] w-auto max-w-full rounded-ac-lg object-contain shadow-ac"
+                        />
+                        <button
+                            type="button"
+                            class="album-nav-btn absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full border-2 border-ac-border bg-base-100/95 px-3 py-2 text-2xl leading-none shadow-ac transition hover:bg-ac-sand md:right-4 md:px-4 md:py-3"
+                            data-album-next
+                            aria-label="下一张"
+                        >
+                            ›
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between gap-3 border-t border-ac-border px-4 py-2.5 text-xs text-ac-text-light md:px-5 md:text-sm">
+                        <time id="album-lightbox-date" datetime="" />
+                        <span id="album-lightbox-counter" />
+                    </div>
+                </figure>
+            </div>
+        </>
+    )
+}
+
+<script define:vars={{ albumJson }}>
+    const items = JSON.parse(albumJson);
+    const lightbox = document.getElementById("album-lightbox");
+
+    if (lightbox && items.length > 0) {
+        const img = document.getElementById("album-lightbox-img");
+        const titleEl = document.getElementById("album-lightbox-title");
+        const descEl = document.getElementById("album-lightbox-desc");
+        const dateEl = document.getElementById("album-lightbox-date");
+        const counterEl = document.getElementById("album-lightbox-counter");
+        let current = 0;
+
+        function render(index) {
+            current = (index + items.length) % items.length;
+            const item = items[current];
+            img.src = item.src;
+            img.alt = item.title;
+            titleEl.textContent = item.title;
+            descEl.textContent = item.desc;
+            dateEl.textContent = item.date;
+            dateEl.setAttribute("datetime", item.date);
+            counterEl.textContent = `${current + 1} / ${items.length}`;
+        }
+
+        function open(index) {
+            render(index);
+            lightbox.classList.remove("hidden");
+            lightbox.classList.add("flex");
+            lightbox.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+        }
+
+        function close() {
+            lightbox.classList.add("hidden");
+            lightbox.classList.remove("flex");
+            lightbox.setAttribute("aria-hidden", "true");
+            document.body.style.overflow = "";
+        }
+
+        document.querySelectorAll("[data-album-open]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                open(Number(btn.getAttribute("data-album-open")));
+            });
+        });
+
+        lightbox.querySelectorAll("[data-album-close]").forEach((btn) => {
+            btn.addEventListener("click", close);
+        });
+
+        lightbox
+            .querySelector("[data-album-prev]")
+            ?.addEventListener("click", () => render(current - 1));
+        lightbox
+            .querySelector("[data-album-next]")
+            ?.addEventListener("click", () => render(current + 1));
+
+        document.addEventListener("keydown", (event) => {
+            if (lightbox.classList.contains("hidden")) return;
+            if (event.key === "Escape") close();
+            if (event.key === "ArrowLeft") render(current - 1);
+            if (event.key === "ArrowRight") render(current + 1);
+        });
+    }
+</script>
+
+<style>
+    .album-lightbox:not(.hidden) {
+        display: flex;
+    }
+</style>
