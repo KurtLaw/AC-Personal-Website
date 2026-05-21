@@ -1,9 +1,9 @@
 ---
-title: "Welcome to my blog"
-description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-pubDate: "Mar 14 2025"
-heroImage: "/post_img.png"
-tags: ["welcome"]
+title: "嗨！这是我岛上的第一个'博客'"
+description: "第一篇博客点击进入阅读"
+pubDate: "2026/5/21	"
+heroImage: "/blog/top1.jpg"
+tags: ["欢迎"]
 ---
 
-Welcome to my blog! This is your first post. Edit or delete it, then start writing!
+就像我刚开始在无人岛搭帐篷那样，今天我也支棱起了我的第一个博客。虽然现在只有杂草和石头，但我打算慢慢种出铃兰来。欢迎上岛，记得穿袜子，地板上有点乱。

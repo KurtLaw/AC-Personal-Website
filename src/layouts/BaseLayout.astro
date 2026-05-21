@@ -1,5 +1,6 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import AnimalCursor from "../components/AnimalCursor.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SideBar from "../components/SideBar.astro";
@@ -38,6 +39,7 @@ const {
         </script>
     </head>
     <body>
+        <AnimalCursor>
         <div class="bg-ac-cream drawer lg:drawer-open">
             <input id="my-drawer" type="checkbox" class="drawer-toggle" />
             <div class="drawer-content bg-base-100 rounded-tl-ac-xl relative min-h-screen flex flex-col">
@@ -62,6 +64,7 @@ const {
                 )
             }
         </div>
+        </AnimalCursor>
         <script is:inline>
             var __BASE__ = document.documentElement.getAttribute('data-base') || '/';
             function applyTheme(theme) {
