@@ -1,0 +1,88 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { AUTHOR_INITIAL } from "../config";
+const steamApiBase = "https://spotify-now-playing-alpha-rose.vercel.app/api/steam";
+---
+
+<BaseLayout title={AUTHOR_INITIAL + " | 游戏"} sideBarActiveItemID="games">
+  <div class="games-page pb-10 space-y-6">
+    <section class="hero-card rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-7">
+      <div class="flex flex-col gap-5 md:flex-row md:items-center">
+        <div class="relative mx-auto h-28 w-28 shrink-0 md:mx-0">
+          <img id="steam-avatar" src="" alt="Steam 头像" class="hidden h-full w-full rounded-[42%_58%_48%_52%] border-4 border-white object-cover shadow-ac" />
+          <div id="avatar-fallback" class="flex h-full w-full items-center justify-center rounded-[42%_58%_48%_52%] border-4 border-white bg-ac-cream text-4xl shadow-ac">?</div>
+        </div>
+        <div class="min-w-0 flex-1 text-center md:text-left">
+          <p class="text-sm font-bold tracking-[0.24em] text-ac-primary-dark">STEAM ISLAND</p>
+          <h1 id="steam-name" class="mt-2 text-3xl font-extrabold text-ac-text-dark md:text-4xl">加载中...</h1>
+          <div class="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
+            <span id="steam-status" class="rounded-full border-2 border-ac-border bg-ac-cream px-4 py-1.5 text-sm font-bold text-ac-text-light">状态加载中</span>
+            <span id="steam-hours" class="rounded-full border-2 border-ac-border bg-white/70 px-4 py-1.5 text-sm font-bold text-ac-text-light">统计中</span>
+          </div>
+        </div>
+        <a id="steam-link" href="#" target="_blank" rel="noreferrer" class="btn-ac mx-auto whitespace-nowrap md:mx-0">打开 Steam 主页</a>
+      </div>
+    </section>
+
+    <div class="grid gap-6 lg:grid-cols-[1fr_1.25fr]">
+      <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+        <div class="mb-4 flex items-center justify-between gap-3">
+          <div><p class="text-xs font-bold tracking-[0.2em] text-ac-primary-dark">NOW PLAYING</p><h2 class="text-xl font-bold text-ac-text-dark">当前游玩</h2></div>
+          <span id="current-badge" class="rounded-full bg-ac-cream px-4 py-1.5 text-sm font-bold text-ac-text-light">加载中</span>
+        </div>
+        <div id="current-game" class="rounded-ac-lg border-2 border-dashed border-ac-border bg-ac-cream/70 p-5 text-sm text-ac-text-light">正在向小狸终端查询...</div>
+      </section>
+
+      <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+        <div class="mb-4 flex items-center justify-between gap-3">
+          <div><p class="text-xs font-bold tracking-[0.2em] text-ac-primary-dark">RECENT PLAY</p><h2 class="text-xl font-bold text-ac-text-dark">最近游玩</h2></div>
+          <span class="rounded-full bg-ac-green-light/60 px-4 py-1.5 text-sm font-bold text-ac-text-dark">最近两周</span>
+        </div>
+        <div id="recent-games" class="grid gap-3 sm:grid-cols-2"><div class="col-span-full rounded-ac-lg border-2 border-dashed border-ac-border bg-ac-cream/70 p-5 text-center text-sm text-ac-text-light">加载中...</div></div>
+      </section>
+    </div>
+
+    <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+      <div class="mb-5 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div><p class="text-xs font-bold tracking-[0.2em] text-ac-primary-dark">GAME LIBRARY</p><h2 class="text-2xl font-bold text-ac-text-dark">游戏图鉴</h2><p id="library-summary" class="mt-1 text-sm text-ac-text-light">正在整理游戏库...</p></div>
+        <div class="flex flex-col gap-2 sm:flex-row">
+          <input id="game-search" type="search" placeholder="搜索游戏..." class="rounded-ac-md border-2 border-ac-border bg-ac-cream px-4 py-2 text-sm text-ac-text-dark outline-none transition focus:border-ac-primary" />
+          <select id="game-sort" class="rounded-ac-md border-2 border-ac-border bg-ac-cream px-4 py-2 text-sm font-bold text-ac-text-dark outline-none transition focus:border-ac-primary">
+            <option value="recent">最近游玩</option><option value="hours">游玩时长</option><option value="name">名称排序</option>
+          </select>
+        </div>
+      </div>
+      <div id="library-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"><div class="col-span-full rounded-ac-lg border-2 border-dashed border-ac-border bg-ac-cream/70 p-8 text-center text-sm text-ac-text-light">加载中...</div></div>
+    </section>
+
+    <section class="rounded-ac-xl border-2 border-dashed border-ac-border bg-ac-cream/70 p-5 text-center">
+      <p class="text-xs leading-6 text-ac-text-light">本页面游戏资料来自 Steam Web API 与 Steam CDN，仅用于展示个人游玩记录。游戏名称、图片和相关素材版权归 Valve、Steam 及对应游戏版权所有者所有。</p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .games-page{position:relative}.games-page:before{background-image:radial-gradient(var(--ac-sand) 1.2px,transparent 1.2px);background-size:18px 18px;content:"";inset:-1rem;opacity:.22;pointer-events:none;position:absolute}.games-page>*{position:relative}.hero-card{background:linear-gradient(135deg,rgba(42,186,170,.18),rgba(255,241,118,.2)),var(--ac-surface)}.game-card{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}.game-card:hover{border-color:var(--ac-primary);box-shadow:var(--ac-shadow-hover);transform:translateY(-3px) rotate(-.35deg)}.game-cover{background:linear-gradient(135deg,var(--ac-cream),var(--ac-sand))}
+</style>
+
+<script define:vars={{ steamApiBase }}>
+  const api = (type) => `${steamApiBase}?type=${type}`;
+  const state = { library: [], recent: [] };
+  const $ = (s) => document.querySelector(s);
+  const store = (id) => `https://store.steampowered.com/app/${id}/`;
+  const img = (g) => g?.image || `https://cdn.cloudflare.steamstatic.com/steam/apps/${g?.appid}/header.jpg`;
+  const hours = (v) => Number(v || 0) <= 0 ? "未游玩" : `${Number(v).toLocaleString("zh-CN")} 小时`;
+  const date = (t) => t ? new Intl.DateTimeFormat("zh-CN", { year:"numeric", month:"short", day:"numeric" }).format(new Date(Number(t) * 1000)) : "还没登岛";
+  async function get(type){ const r = await fetch(api(type)); if(!r.ok) throw new Error(type); return r.json(); }
+  function error(el,msg){ el.innerHTML = `<div class="rounded-ac-lg border-2 border-dashed border-ac-border bg-ac-cream/70 p-5 text-center text-sm text-ac-text-light">${msg}</div>`; }
+  function card(g, compact=false){
+    const recent = Number(g.playtime_2weeks || 0) > 0 ? `<span class="rounded-full bg-ac-yellow/70 px-2.5 py-1 text-xs font-bold text-ac-text-dark">近两周 ${g.playtime_2weeks} 分钟</span>` : "";
+    return `<a href="${store(g.appid)}" target="_blank" rel="noreferrer" class="game-card block overflow-hidden rounded-ac-xl border-2 border-ac-border bg-white/80 shadow-ac"><div class="game-cover aspect-[2.35/1] overflow-hidden"><img src="${img(g)}" alt="${g.name}" loading="lazy" class="h-full w-full object-cover" /></div><div class="space-y-3 p-4"><div><h3 class="line-clamp-2 text-base font-extrabold text-ac-text-dark">${g.name}</h3><p class="mt-1 text-xs text-ac-text-light">最后游玩：${date(g.rtime_last_played)}</p></div><div class="flex flex-wrap items-center justify-between gap-2"><span class="rounded-full bg-ac-primary/10 px-3 py-1 text-xs font-bold text-ac-primary-dark">${hours(g.hours)}</span>${compact ? recent : `<span class="rounded-full bg-ac-cream px-3 py-1 text-xs font-bold text-ac-text-light">AppID ${g.appid}</span>`}</div></div></a>`;
+  }
+  function profile(p){ $("#steam-name").textContent=p.username||"Steam 玩家"; $("#steam-status").textContent=p.status||"未知状态"; $("#steam-link").href=p.profileurl||"https://steamcommunity.com/"; if(p.avatar){$("#steam-avatar").src=p.avatar; $("#steam-avatar").classList.remove("hidden"); $("#avatar-fallback").classList.add("hidden");} }
+  function current(c){ const playing=c?.playing||Boolean(c?.gameid||c?.appid||c?.gameextrainfo||c?.name); if(!playing){$("#current-badge").textContent="离线散步中"; $("#current-game").innerHTML=`<div class="flex items-center gap-4"><div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-ac-lg bg-white text-xl font-bold shadow-sm">Zzz</div><div><h3 class="text-lg font-bold text-ac-text-dark">现在没有正在游玩的游戏</h3><p class="mt-1 leading-6 text-ac-text-light">等你打开 Steam 游戏后，这里会展示当前游玩状态。</p></div></div>`; return;} const id=c.appid||c.gameid; const name=c.name||c.gameextrainfo||"正在游玩的游戏"; $("#current-badge").textContent="正在游玩"; $("#current-game").innerHTML=`<div class="overflow-hidden rounded-ac-lg border-2 border-ac-border bg-white shadow-sm"><img src="https://cdn.cloudflare.steamstatic.com/steam/apps/${id}/header.jpg" alt="${name}" class="h-32 w-full object-cover" /><div class="p-4"><h3 class="text-xl font-extrabold text-ac-text-dark">${name}</h3>${id?`<a href="${store(id)}" target="_blank" rel="noreferrer" class="mt-3 inline-flex rounded-ac-md border-2 border-ac-primary bg-ac-primary/10 px-3 py-1.5 text-xs font-bold text-ac-primary-dark">查看商店页</a>`:""}</div></div>`; }
+  function renderRecent(){ const el=$("#recent-games"); state.recent.length ? el.innerHTML=state.recent.slice(0,4).map(g=>card(g,true)).join("") : error(el,"最近两周还没有游玩记录。"); }
+  function renderLibrary(){ const q=$("#game-search").value.trim().toLowerCase(); const sort=$("#game-sort").value; let games=[...state.library].filter(g=>!q||g.name.toLowerCase().includes(q)); games.sort((a,b)=>sort==="hours"?Number(b.hours||0)-Number(a.hours||0):sort==="name"?a.name.localeCompare(b.name,"zh-CN"):Number(b.rtime_last_played||0)-Number(a.rtime_last_played||0)); games.length ? $("#library-grid").innerHTML=games.map(g=>card(g)).join("") : error($("#library-grid"),"没有找到匹配的游戏。换个关键词试试吧。"); }
+  async function init(){ try{ const [p,c,r,l]=await Promise.all([get("profile"),get("current"),get("recent"),get("library")]); state.recent=Array.isArray(r)?r:[]; state.library=Array.isArray(l)?l:[]; profile(p||{}); renderRecent(); renderLibrary(); current(c||{}); const total=state.library.reduce((s,g)=>s+Number(g.hours||0),0); const played=state.library.filter(g=>Number(g.playtime_forever||0)>0).length; $("#library-summary").textContent=`已收录 ${state.library.length} 款游戏，其中 ${played} 款留下了脚印。`; $("#steam-hours").textContent=`总计 ${total.toLocaleString("zh-CN")} 小时`; } catch(e){ console.error(e); $("#steam-name").textContent="Steam 小岛暂时迷路"; $("#steam-status").textContent="接口异常"; $("#steam-hours").textContent="统计失败"; error($("#current-game"),"Steam 状态获取失败，请稍后再试。"); error($("#recent-games"),"最近游玩获取失败，请稍后再试。"); error($("#library-grid"),"游戏库获取失败，请稍后再试。"); } }
+  $("#game-search").addEventListener("input", renderLibrary); $("#game-sort").addEventListener("change", renderLibrary); init();
+</script>

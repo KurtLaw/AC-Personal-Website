@@ -1,9 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import AcNpcScene from "../../components/AcNpcScene.astro";
-import { AUTHOR_INITIAL } from "../../config";
-import gulliverIcon from "../images/Gulliver_NH_Character_Icon.png";
-import gulliverFull from "../images/130px-Gulliver_NH_2.png";
+import { AUTHOR_INITIAL, url } from "../../config";
 ---
 
 <BaseLayout
@@ -16,8 +14,8 @@ import gulliverFull from "../images/130px-Gulliver_NH_2.png";
         <AcNpcScene
             line1="该岛民项目被吕游撞到海里去了呢"
             attribution="—— 吕游说：对不起啦，我帮你捞！"
-            icon={gulliverIcon}
-            figure={gulliverFull}
+            icon={url("projects/Gulliver_NH_Character_Icon.png")}
+            figure={url("projects/130px-Gulliver_NH_2.png")}
             figureAlt="吕游"
         />
     </div>

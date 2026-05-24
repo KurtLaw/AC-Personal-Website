@@ -1,7 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import TimeLineElement from "../components/cv/TimeLine.astro";
-import { Image } from "astro:assets";
 import { AUTHOR_INITIAL, url } from "src/config";
 ---
 
@@ -9,128 +7,172 @@ import { AUTHOR_INITIAL, url } from "src/config";
     title={AUTHOR_INITIAL + " | Personal"}
     sideBarActiveItemID="personal"
 >
-    <!-- TODO change color according to theme
-    <div class="w-[10rem] mt-5 mb-6">
-        <Image
-            class="fill-current rounded-ac-md"
-            format="webp"
-            width={300}
-            height={300}
-            src={url('favicon.svg')}
-            alt="icon"
-        />
-    </div> -->
-    <div class="w-[10rem] mt-5 mb-6">
-        <Image
-            class="fill-current rounded-ac-md"
-            format="webp"
-            width={300}
-            height={300}
-            src={url('favicon.svg')}
-            alt="icon"
-        />
-    </div>
-    <div class="mb-5">
-        <div class="text-3xl w-full font-bold">About Me</div>
-    </div>
+    <div class="pb-10 space-y-6">
 
-    <div class="mb-10 text-justify">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
+        <!-- 傅达鉴定区 -->
+        <section class="boda-section rounded-ac-xl border-2 border-ac-border bg-gradient-to-br from-ac-cream to-base-100 p-5 shadow-ac md:p-6">
+            <div class="flex items-center gap-3 mb-4">
+                <img
+                    src={url("personal/bodatubiao.png")}
+                    alt="傅达"
+                    class="h-12 w-12 rounded-full border-2 border-ac-sand shadow-sm"
+                />
+                <div>
+                    <p class="text-base font-bold text-ac-text-dark">本岛民资料已通过傅达鉴定啦</p>
+                    <p class="text-xs text-ac-text-light">—— 傅达说：是值得展示的珍品喔</p>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <img
+                    src={url("personal/bodaimage.png")}
+                    alt="傅达鉴定"
+                    class="max-h-48 w-auto rounded-ac-lg shadow-ac md:max-h-56"
+                />
+            </div>
+        </section>
+
+        <!-- 护照对比区 -->
+        <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+            <h2 class="mb-4 text-xl font-bold text-ac-text-dark">岛民护照</h2>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div class="group overflow-hidden rounded-ac-lg border-2 border-ac-border bg-ac-cream shadow-ac transition hover:border-ac-primary hover:shadow-ac-hover">
+                    <img
+                        src={url("personal/huzhaodonghua.jpg")}
+                        alt="动森护照"
+                        class="w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                        loading="lazy"
+                    />
+                    <div class="px-3 py-2 text-center text-sm font-medium text-ac-text-dark">游戏内护照</div>
+                </div>
+                <div class="group overflow-hidden rounded-ac-lg border-2 border-ac-border bg-ac-cream shadow-ac transition hover:border-ac-primary hover:shadow-ac-hover">
+                    <img
+                        src={url("personal/huzhaozhenren.png")}
+                        alt="真人版护照"
+                        class="w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                        loading="lazy"
+                    />
+                    <div class="px-3 py-2 text-center text-sm font-medium text-ac-text-dark">真人版护照</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 岛民基础信息卡 -->
+        <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+            <h2 class="mb-4 text-xl font-bold text-ac-text-dark">岛民登记表</h2>
+            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div class="info-item rounded-ac-md border border-ac-border bg-ac-cream px-4 py-3">
+                    <span class="text-xs text-ac-text-light">姓名</span>
+                    <p class="font-bold text-ac-text-dark">罗长华</p>
+                </div>
+                <div class="info-item rounded-ac-md border border-ac-border bg-ac-cream px-4 py-3">
+                    <span class="text-xs text-ac-text-light">English Name</span>
+                    <p class="font-bold text-ac-text-dark">KurtLaw</p>
+                </div>
+                <div class="info-item rounded-ac-md border border-ac-border bg-ac-cream px-4 py-3">
+                    <span class="text-xs text-ac-text-light">性别</span>
+                    <p class="font-bold text-ac-text-dark">男</p>
+                </div>
+                <div class="info-item rounded-ac-md border border-ac-border bg-ac-cream px-4 py-3">
+                    <span class="text-xs text-ac-text-light">所在地</span>
+                    <p class="font-bold text-ac-text-dark">昆山</p>
+                </div>
+                <div class="info-item rounded-ac-md border border-ac-border bg-ac-cream px-4 py-3">
+                    <span class="text-xs text-ac-text-light">职业</span>
+                    <p class="font-bold text-ac-text-dark">yes工程师(Java)</p>
+                </div>
+                <div class="info-item rounded-ac-md border border-ac-border bg-ac-cream px-4 py-3">
+                    <span class="text-xs text-ac-text-light">身份</span>
+                    <p class="font-bold text-ac-text-dark">地球online NPC</p>
+                </div>
+                <div class="info-item rounded-ac-md border border-ac-border bg-ac-cream px-4 py-3">
+                    <span class="text-xs text-ac-text-light">擅长领域</span>
+                    <p class="font-bold text-ac-text-dark">干饭</p>
+                </div>
+                <div class="info-item rounded-ac-md border border-ac-border bg-ac-cream px-4 py-3">
+                    <span class="text-xs text-ac-text-light">技能专长</span>
+                    <p class="font-bold text-ac-text-dark">坑蒙拐骗</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 个人简介 -->
+        <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+            <h2 class="mb-3 text-xl font-bold text-ac-text-dark">个人简介</h2>
+            <div class="rounded-ac-md border-2 border-dashed border-ac-border bg-ac-cream px-4 py-3">
+                <p class="text-sm leading-7 text-ac-text-dark">一个快要死掉的人</p>
+            </div>
+        </section>
+
+        <!-- 自我介绍 -->
+        <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+            <h2 class="mb-3 text-xl font-bold text-ac-text-dark">自我介绍</h2>
+            <div class="ac-speech-bubble relative rounded-ac-md border-2 border-ac-border bg-ac-cream px-4 py-4">
+                <p class="text-sm leading-7 text-ac-text-dark">
+                    我靠了，这有啥好介绍的，我是一名已经活了21年的地球online NPC，活到现在感觉真操蛋，开局送的摇杆还不错。
+                </p>
+            </div>
+        </section>
+
+        <!-- 经历履历 -->
+        <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+            <h2 class="mb-3 text-xl font-bold text-ac-text-dark">经历履历</h2>
+            <div class="rounded-ac-md border-2 border-dashed border-ac-border bg-ac-cream px-4 py-4 text-center">
+                <p class="text-sm text-ac-text-light">暂时不开放</p>
+                <p class="mt-1 text-xs text-ac-text-light">（该区域已被狸克锁定，请稍后再来）</p>
+            </div>
+        </section>
+
+        <!-- 兴趣爱好 -->
+        <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+            <h2 class="mb-4 text-xl font-bold text-ac-text-dark">兴趣爱好</h2>
+
+            <div class="space-y-4">
+                <!-- 打游戏 -->
+                <div class="rounded-ac-lg border-2 border-ac-border bg-ac-cream p-4">
+                    <div class="mb-2 flex items-center gap-2">
+                        <span class="inline-block rounded-full bg-ac-primary/20 px-3 py-1 text-xs font-bold text-ac-primary-dark">打游戏</span>
+                    </div>
+                    <p class="text-sm leading-7 text-ac-text-dark">
+                        Dota2、我的世界，最近有点想玩星际争霸了。还有tmd我身边的人怎么都不玩Dota2啊！！！！！
+                    </p>
+                </div>
+
+                <!-- 听摇滚 -->
+                <div class="rounded-ac-lg border-2 border-ac-border bg-ac-cream p-4">
+                    <div class="mb-2 flex items-center gap-2">
+                        <span class="inline-block rounded-full bg-ac-primary/20 px-3 py-1 text-xs font-bold text-ac-primary-dark">听摇滚</span>
+                    </div>
+                    <p class="text-sm leading-7 text-ac-text-dark">
+                        从25年中旬入坑的摇滚，之前一直听的流行。最开始接触的摇滚是大卫·鲍伊，对我摇滚的启发还是比较重的，但现在听他歌占比比较少。现在最喜欢听的是 Nirvana（涅槃）和一些垃圾摇滚乐队，比如爱丽丝囚徒等等等等。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系方式 -->
+        <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+            <h2 class="mb-3 text-xl font-bold text-ac-text-dark">联系方式</h2>
+            <div class="inline-flex items-center gap-3 rounded-ac-md border-2 border-ac-border bg-ac-cream px-4 py-3">
+                <span class="rounded-full bg-ac-primary/20 px-2.5 py-1 text-xs font-bold text-ac-primary-dark">QQ</span>
+                <span class="font-mono text-sm font-bold text-ac-text-dark">2467535381</span>
+            </div>
+        </section>
+
     </div>
-
-    <!-- <div class="mb-5">
-        <div class="text-3xl w-full font-bold">Education</div>
-    </div>
-
-    <div class="time-line-container grid gap-4 mb-10">
-        <TimeLineElement
-            title="Title Name"
-            subtitle="[start year] to [end year] at [Study Center Name], [City], [Country]"
-        />
-        <TimeLineElement
-            title="Title Name"
-            subtitle="[start year] to [end year] at [Study Center Name], [City], [Country]"
-        />
-    </div>
-
-    <div class="mb-5">
-        <div class="text-3xl w-full font-bold">Experience</div>
-    </div>
-
-    <div class="time-line-container mb-10">
-        <TimeLineElement
-            title="Job Title at Project or Company Name"
-            subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
-        >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident.
-        </TimeLineElement>
-        <TimeLineElement
-            title="Job Title at Project or Company Name"
-            subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
-        >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident.
-        </TimeLineElement>
-        <TimeLineElement
-            title="Job Title at Project or Company Name"
-            subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
-        >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident.
-        </TimeLineElement>
-    </div>
-
-    <div class="mb-5">
-        <div class="text-3xl w-full font-bold">Certifications</div>
-    </div>
-
-    <ul class="list-disc mx-6 mb-10 grid gap-2">
-        <li>
-            <a href="#" target="_blank"> Certification Name (with link)</a>
-        </li>
-        <li>
-            <a href="#" target="_blank"> Certification Name (with link)</a>
-        </li>
-    </ul>
-
-    <div class="mb-5">
-        <div class="text-3xl w-full font-bold">Skills</div>
-    </div>
-
-    <ul class="list-disc md:columns-5 columns-2 mx-6">
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-        <li>Skill Name</li>
-    </ul> -->
 </BaseLayout>
+
+<style>
+    .ac-speech-bubble::before {
+        content: "";
+        position: absolute;
+        top: 1rem;
+        left: -0.5rem;
+        width: 0.7rem;
+        height: 0.7rem;
+        background: var(--ac-cream, #faf6ed);
+        border-left: 2px solid var(--ac-border, #ddd6c0);
+        border-top: 2px solid var(--ac-border, #ddd6c0);
+        transform: rotate(-45deg);
+        border-top-left-radius: 3px;
+    }
+</style>

@@ -1,0 +1,98 @@
+---
+import { AUTHOR_INITIAL, url, BASE_PATH } from "../config";
+---
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{AUTHOR_INITIAL} | Spotify 授权中...</title>
+    <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #faf6ed 0%, #f5efe0 100%);
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .callback-card {
+            background: #fff;
+            border: 2px solid #ddd6c0;
+            border-radius: 1rem;
+            padding: 2rem 2.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(135,115,88,0.12);
+            max-width: 400px;
+        }
+        .spinner {
+            width: 48px; height: 48px;
+            border: 4px solid #e8e2d4;
+            border-top-color: #7cb77c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        h1 { font-size: 1.25rem; color: #5c5346; margin-bottom: 0.5rem; }
+        p { color: #8a8070; font-size: 0.9rem; }
+        .error { color: #c44; }
+        .success { color: #5a9a5a; }
+    </style>
+</head>
+<body>
+    <div class="callback-card">
+        <div class="spinner" id="spinner"></div>
+        <h1 id="title">正在处理 Spotify 授权...</h1>
+        <p id="message">请稍候，正在获取访问令牌</p>
+    </div>
+
+    <script is:inline define:vars={{ basePath: BASE_PATH }}>window.__BASE_PATH__ = basePath;</script>
+    <script src={url('js/spotify-auth.js')}></script>
+    <script is:inline>
+        (async function() {
+            var base = window.__BASE_PATH__ || '/';
+            var titleEl = document.getElementById('title');
+            var messageEl = document.getElementById('message');
+            var spinnerEl = document.getElementById('spinner');
+            var params = new URLSearchParams(window.location.search);
+            var code = params.get('code');
+            var error = params.get('error');
+
+            if (error) {
+                spinnerEl.style.display = 'none';
+                titleEl.textContent = '授权失败';
+                titleEl.classList.add('error');
+                messageEl.textContent = '用户取消了授权或发生错误';
+                setTimeout(function() { window.location.href = base + 'music'; }, 2000);
+                return;
+            }
+            if (!code) {
+                spinnerEl.style.display = 'none';
+                titleEl.textContent = '无效请求';
+                titleEl.classList.add('error');
+                messageEl.textContent = '缺少授权码';
+                setTimeout(function() { window.location.href = base + 'music'; }, 2000);
+                return;
+            }
+            try {
+                await window.SpotifyAuth.exchangeCode(code);
+                spinnerEl.style.display = 'none';
+                titleEl.textContent = '授权成功！';
+                titleEl.classList.add('success');
+                messageEl.textContent = '正在跳转到音乐页面...';
+                setTimeout(function() { window.location.href = base + 'music'; }, 1500);
+            } catch (err) {
+                spinnerEl.style.display = 'none';
+                titleEl.textContent = '授权失败';
+                titleEl.classList.add('error');
+                messageEl.textContent = err.message || '获取令牌时发生错误';
+                setTimeout(function() { window.location.href = base + 'music'; }, 3000);
+            }
+        })();
+    </script>
+</body>
+</html>

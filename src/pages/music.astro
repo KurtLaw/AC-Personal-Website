@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { AUTHOR_INITIAL, url } from "../config";
+---
+
+<BaseLayout title={AUTHOR_INITIAL + " | 音乐"} sideBarActiveItemID="music">
+    <div class="pb-10 space-y-6">
+        <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="h-14 w-14 overflow-hidden rounded-full border-2 border-ac-sand bg-ac-cream shadow-sm">
+                        <img id="user-avatar" src="" alt="" class="hidden h-full w-full object-cover" />
+                    </div>
+                    <div>
+                        <p class="text-sm text-ac-text-light">Spotify 用户</p>
+                        <h2 id="user-name" class="text-2xl font-bold text-ac-text-dark">加载中...</h2>
+                    </div>
+                </div>
+                <a id="user-profile-link" href="#" target="_blank" class="rounded-ac-md border-2 border-ac-primary bg-ac-primary/10 px-3 py-2 text-xs font-bold text-ac-primary-dark transition hover:bg-ac-primary/20">打开主页</a>
+            </div>
+        </section>
+
+        <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+            <div class="mb-4 flex items-center justify-between gap-3">
+                <h2 class="text-lg font-bold text-ac-text-dark">正在播放</h2>
+                <span id="now-playing-status" class="rounded-full bg-ac-cream px-4 py-1.5 text-sm font-bold text-ac-text-light">加载中</span>
+            </div>
+            <div id="now-playing" class="rounded-ac-lg border-2 border-dashed border-ac-border bg-ac-cream p-4 text-sm text-ac-text-light">加载中...</div>
+        </section>
+
+        <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+            <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+                <h2 class="text-lg font-bold text-ac-text-dark">热门内容</h2>
+                <div class="flex gap-2">
+                    <button data-top-type="top-artists" class="top-tab rounded-ac-md border-2 border-ac-primary bg-ac-primary/10 px-3 py-1.5 text-xs font-bold text-ac-primary-dark">艺人</button>
+                    <button data-top-type="top-tracks" class="top-tab rounded-ac-md border-2 border-ac-border bg-ac-cream px-3 py-1.5 text-xs font-bold text-ac-text-light">歌曲</button>
+                </div>
+            </div>
+            <div id="top-grid" class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"><div class="col-span-full py-8 text-center text-sm text-ac-text-light">加载中...</div></div>
+        </section>
+
+        <section class="rounded-ac-xl border-2 border-ac-border bg-base-100 p-5 shadow-ac md:p-6">
+            <div class="mb-4 flex items-center justify-between gap-3">
+                <h2 class="text-lg font-bold text-ac-text-dark">关注艺人</h2>
+                <p class="text-xs text-ac-text-light">点击艺人可查看详情</p>
+            </div>
+            <div id="following-grid" class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"><div class="col-span-full py-8 text-center text-sm text-ac-text-light">加载中...</div></div>
+        </section>
+
+        <section class="rounded-ac-xl border-2 border-dashed border-ac-border bg-ac-cream/60 p-5 text-center">
+            <p class="text-xs leading-6 text-ac-text-light">
+                本页面所有音乐曲目、艺人图文、专辑素材等内容，均调取自 Spotify 开放 API。<br />
+                相关著作权、版权归属 Spotify 及对应音乐版权所有者，未经授权严禁商用、篡改与二次分发。<br />
+                如若存在版权相关争议，可联系我方进行下架处理。
+            </p>
+        </section>
+    </div>
+
+    <div id="detail-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-hidden="true">
+        <button id="detail-modal-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm" aria-label="关闭"></button>
+        <div class="relative z-10 w-full max-w-md overflow-hidden rounded-ac-xl border-2 border-ac-border bg-base-100 shadow-ac">
+            <div class="relative h-56 w-full bg-ac-cream">
+                    <img id="detail-modal-img" src="" alt="" class="h-full w-full object-contain p-3" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <p id="detail-modal-kicker" class="text-xs font-bold tracking-[0.22em] text-[#f5e6c8]">SPOTIFY</p>
+                        <h3 id="detail-modal-title" class="mt-1 text-2xl font-bold text-white"></h3>
+                    </div>
+                </div>
+            <div class="space-y-3 p-5">
+                <p id="detail-modal-subtitle" class="text-sm leading-6 text-ac-text-light"></p>
+                <div id="detail-modal-meta" class="space-y-2 text-sm text-ac-text-dark"></div>
+                <a id="detail-modal-link" href="#" target="_blank" class="block w-full rounded-ac-md border-2 border-[#1DB954] bg-[#1DB954] px-4 py-2.5 text-center text-sm font-bold text-white transition hover:bg-[#1ed760]">在 Spotify 中打开</a>
+            </div>
+            <button id="detail-modal-close" class="absolute right-3 top-3 rounded-ac-md bg-black/40 px-2.5 py-1 text-sm font-bold text-white backdrop-blur-sm hover:bg-black/60" aria-label="关闭">✕</button>
+        </div>
+    </div>
+</BaseLayout>
+
+<script src={url('js/spotify-music.js')}></script>

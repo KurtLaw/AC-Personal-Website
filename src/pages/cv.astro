@@ -1,9 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import AcNpcScene from "../components/AcNpcScene.astro";
-import { AUTHOR_INITIAL } from "src/config";
-import isabelleIcon from "./images/Isabelle_NH_Character_Icon.png";
-import isabelleFull from "./images/800px-Isabelle_NH_Transparent.png";
+import { AUTHOR_INITIAL, url } from "src/config";
 ---
 
 <BaseLayout title={AUTHOR_INITIAL + " | Resume"} sideBarActiveItemID="cv">
@@ -13,8 +11,8 @@ import isabelleFull from "./images/800px-Isabelle_NH_Transparent.png";
         <AcNpcScene
             line1="该岛民简历还在纸箱里没拆封哦"
             attribution="—— 西施惠说：请改天再来看看吧"
-            icon={isabelleIcon}
-            figure={isabelleFull}
+            icon={url("cv/Isabelle_NH_Character_Icon.png")}
+            figure={url("cv/800px-Isabelle_NH_Transparent.png")}
             figureAlt="西施惠"
         />
     </div>

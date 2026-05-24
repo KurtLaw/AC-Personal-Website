@@ -1,12 +1,9 @@
 ---
-import { Image } from "astro:assets";
-import type { ImageMetadata } from "astro";
-
 interface Props {
     line1: string;
     attribution: string;
-    icon: ImageMetadata;
-    figure: ImageMetadata;
+    icon: string;
+    figure: string;
     figureAlt: string;
 }
 
@@ -33,12 +30,14 @@ const { line1, attribution, icon, figure, figureAlt } = Astro.props;
                     <div
                         class="shrink-0 rounded-ac-sm border-2 border-ac-sand bg-ac-cream p-1 shadow-sm"
                     >
-                        <Image
+                        <img
                             src={icon}
                             alt=""
                             class="h-10 w-10 object-contain md:h-11 md:w-11"
-                            width={44}
-                            height={44}
+                            width="44"
+                            height="44"
+                            loading="lazy"
+                            decoding="async"
                         />
                     </div>
                     <div
@@ -56,12 +55,12 @@ const { line1, attribution, icon, figure, figureAlt } = Astro.props;
         <div
             class="flex justify-center lg:col-start-2 lg:row-start-1 lg:items-end lg:self-end"
         >
-            <Image
+            <img
                 src={figure}
                 alt={figureAlt}
                 class="ac-npc-figure h-auto w-auto max-h-[min(28vh,200px)] max-w-[160px] object-contain object-bottom drop-shadow-[0_8px_16px_rgba(135,115,88,0.18)] sm:max-h-[min(32vh,220px)] sm:max-w-[180px] lg:max-h-[min(34vh,240px)] lg:max-w-[190px]"
-                widths={[300, 400, 600]}
-                sizes="(max-width: 1024px) 180px, 190px"
+                loading="lazy"
+                decoding="async"
             />
         </div>
     </div>
